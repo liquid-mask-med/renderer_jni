@@ -1,0 +1,11 @@
+.vs/
+*.user
+*.suo
+*.pdb
+*.obj
+*.ilk
+*.tlog
+*.recipe
+*.log
+/x64/
+/renderer_jni/x64/
