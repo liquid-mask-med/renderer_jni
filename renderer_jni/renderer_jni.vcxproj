@@ -55,6 +55,10 @@
   </PropertyGroup>
 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup>
+    <RendererServerNativeDir>$(SolutionDir)..\renderer_server\native</RendererServerNativeDir>
+    <JavaHome>$(JAVA_HOME)</JavaHome>
+  </PropertyGroup>
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="Shared" >
@@ -77,7 +81,7 @@
     <TargetName>renderer_jni</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64' Or '$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Program Files\Java\latest\jdk-26\include;C:\Program Files\Java\latest\jdk-26\include\win32;$(IncludePath)</IncludePath>
+    <IncludePath>$(JavaHome)\include;$(JavaHome)\include\win32;$(IncludePath)</IncludePath>
   </PropertyGroup>
 
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -118,6 +122,10 @@
       <SubSystem>Console</SubSystem>
        <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>if not exist "$(RendererServerNativeDir)" mkdir "$(RendererServerNativeDir)"
+xcopy "$(TargetPath)" "$(RendererServerNativeDir)\" /Y /D</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -142,6 +150,9 @@
     <ClInclude Include="RendererApi.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <Target Name="ValidateJavaHome" BeforeTargets="PrepareForBuild" Condition="'$(Platform)' == 'x64'">
+    <Error Condition="!Exists('$(JavaHome)\include\jni.h')" Text="Cannot find JNI headers. Set JAVA_HOME to the JDK installation directory and reopen Visual Studio." />
+  </Target>
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
 </Project>
