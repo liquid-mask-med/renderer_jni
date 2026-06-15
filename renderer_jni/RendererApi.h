@@ -18,6 +18,14 @@ struct Vec3
     float z;
 };
 
+struct SliceDisplayMapping
+{
+    float centerU;
+    float centerV;
+    float halfU;
+    float halfV;
+};
+
 using RendererHandle = void*;
 using CreateRendererFn = RendererHandle(*)();
 using RendererFn = void(*)(RendererHandle);
@@ -26,6 +34,6 @@ using ResizeViewportFn = void(*)(RendererHandle, int, int, int);
 using GetImageFn = void(*)(RendererHandle, RenderImage*);
 using GetSliceImageFn = void(*)(RendererHandle, int, RenderImage*);
 using SetUpRenderParametersFn = void(*)(RendererHandle, uint16_t*, int, int, int, int, int, double, double);
-using SetUpSliceStateFn = void(*)(RendererHandle, int, Vec3, Vec3, Vec3);
+using SetUpSliceStateFn = void(*)(RendererHandle, int, Vec3, Vec3, Vec3, SliceDisplayMapping);
 using RotateCameraFn = void(*)(RendererHandle, float, float);
 

@@ -148,10 +148,13 @@ JNIEXPORT void JNICALL Java_com_pulimed_renderer_nativebridge_NativeRenderer_set
     JNIEnv*, jclass, jlong handle, jint index,
     jfloat ox, jfloat oy, jfloat oz,
     jfloat ux, jfloat uy, jfloat uz,
-    jfloat vx, jfloat vy, jfloat vz)
+    jfloat vx, jfloat vy, jfloat vz,
+    jfloat centerU, jfloat centerV, jfloat halfU, jfloat halfV)
 {
     auto bridge = fromHandle(handle);
-    bridge->setUpSliceState(bridge->renderer, index, { ox, oy, oz }, { ux, uy, uz }, { vx, vy, vz });
+    bridge->setUpSliceState(
+        bridge->renderer, index, { ox, oy, oz }, { ux, uy, uz }, { vx, vy, vz },
+        { centerU, centerV, halfU, halfV });
 }
 
 JNIEXPORT void JNICALL Java_com_pulimed_renderer_nativebridge_NativeRenderer_rotate(
