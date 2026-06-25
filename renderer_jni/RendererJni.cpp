@@ -126,14 +126,14 @@ JNIEXPORT void JNICALL Java_com_pulimed_renderer_nativebridge_NativeRenderer_ini
 
 JNIEXPORT void JNICALL Java_com_pulimed_renderer_nativebridge_NativeRenderer_setVolume(
     JNIEnv* env, jclass, jlong handle, jbyteArray data, jint width, jint height, jint depth,
-    jint windowWidth, jint windowCenter, jdouble spacing, jdouble thickness)
+    jint windowWidth, jint windowCenter, jdouble spacingX, jdouble spacingY, jdouble spacingZ)
 {
     auto bridge = fromHandle(handle);
     jbyte* bytes = env->GetByteArrayElements(data, nullptr);
     bridge->setUpRenderParameters(
         bridge->renderer,
         reinterpret_cast<uint16_t*>(bytes),
-        width, height, depth, windowWidth, windowCenter, spacing, thickness);
+        width, height, depth, windowWidth, windowCenter, spacingX, spacingY, spacingZ);
     env->ReleaseByteArrayElements(data, bytes, JNI_ABORT);
 }
 
